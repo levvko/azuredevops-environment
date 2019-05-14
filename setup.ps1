@@ -1,6 +1,15 @@
+param(
+    $az_sub,
+    $keyVaultName,
+    $ApplicationId,
+    $TenantId,
+    $Password
+)
 $ErrorActionPreference="Stop"
 
-. .\variables.ps1
+if (Test-Path .\variables.ps1) {
+    . .\variables.ps1
+}
 
 # Connecting to subscription
 try {
@@ -8,7 +17,13 @@ try {
     Write-Host "Connected to Subscription $subscription"
 }
 catch {
-    Connect-AzAccount -Subscription $az_sub
+    if ($ApplicationId -and $Password -and $TenantId) {
+        $securePass = ConvertTo-SecureString $Password -AsPlainText -Force
+        $credentials = New-Object System.Management.Automation.PSCredential ($ApplicationId, $securePass)
+        Connect-AzAccount -ServicePrincipal -Credential $credentials -TenantId $TenantId
+    } else {
+        Connect-AzAccount -Subscription $az_sub
+    }
 }
 
 $TemplateRootPath = Join-Path $PSScriptRoot 'templates'

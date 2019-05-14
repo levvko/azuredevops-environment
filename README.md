@@ -18,3 +18,4 @@ underlying infrastructure for azure devops setup
 * 4.1.1 - Agent setup script added
 * 4.2.0 - Pipeline added
 * 4.2.1 - Agent setup script minor fix
+* 4.2.1 - Setup script minor fix
