@@ -1,0 +1,30 @@
+name: infrastructure deployment
+trigger:
+- master
+
+variables:
+- group: DemoEnv
+
+stages:
+- stage: infrastructure_deployment
+  displayName: Infrastructure Deployment
+  jobs:
+  - job: infrastructure_deployment
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+    - task: PowerShell@2
+      displayName: 'Install agent prerequisites'
+      inputs:
+        targetType: 'filePath'
+        filePath: agentSetup.ps1
+        errorActionPreference: 'stop'
+        failOnStderr: true
+    - task: PowerShell@2
+      displayName: 'Deploy infrastructure'
+      inputs:
+        targetType: 'filePath'
+        filePath: setup.ps1
+        arguments: -az_sub $(subscription) -keyVaultName $(keyVaultName) -TenantId $(TenantId) -Password '$(Password)' -ApplicationId $(ApplicationId)
+        errorActionPreference: 'stop'
+        failOnStderr: true
