@@ -16,3 +16,4 @@ underlying infrastructure for azure devops setup
 * 4.0.0 - single parameters file; removed subscription references; etc
 * 4.1.0 - Resources naming fix, parameters cleanup; Templates are not dependant on a subscription/account.
 * 4.1.1 - Agent setup script added
+* 4.2.0 - Pipeline added
