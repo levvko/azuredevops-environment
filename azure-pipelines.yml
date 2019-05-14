@@ -2,12 +2,11 @@ name: infrastructure deployment
 trigger:
 - master
 
-variables:
-- group: DemoEnv
-
 stages:
 - stage: infrastructure_deployment
   displayName: Infrastructure Deployment
+  variables:
+  - group: DemoEnv
   jobs:
   - job: infrastructure_deployment
     pool:
