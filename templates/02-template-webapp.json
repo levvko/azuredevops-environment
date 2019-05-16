@@ -25,15 +25,19 @@
         },
         "workerSize": {
             "type": "string"
+        },
+        "RGName": {
+            "type": "string"
         }
     },
     "resources": [
         {
-            "apiVersion": "2016-03-01",
+            "apiVersion": "2016-08-01",
             "name": "[parameters('webappName')]",
             "type": "Microsoft.Web/sites",
+            "kind": "app,linux,container",
+            "location": "[parameters('location')]",
             "properties": {
-                "name": "[parameters('webappName')]",
                 "siteConfig": {
                     "appSettings": [
                         {
@@ -49,9 +53,9 @@
                     "linuxFxVersion": "DOCKER|nginx"
                 },
                 "clientAffinityEnabled": false,
-                "hostingEnvironment": "[parameters('hostingEnvironment')]"
+                "hostingEnvironment": "[parameters('hostingEnvironment')]",
+                "serverFarmId": "[resourceId(parameters('RGName'),'Microsoft.Network/serverfarms/',parameters('hostingPlanName'))]"
             },
-            "location": "[parameters('location')]",
             "dependsOn": [
                 "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
             ]
