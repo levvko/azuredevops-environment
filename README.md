@@ -20,3 +20,4 @@ underlying infrastructure for azure devops setup
 * 4.2.1 - Agent setup script minor fix
 * 4.2.2 - Setup script minor fix
 * 4.2.3 - WebApp fix to use docker
+* 4.2.4 - WebApp staging slot

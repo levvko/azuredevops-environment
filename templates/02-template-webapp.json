@@ -56,6 +56,21 @@
                 "hostingEnvironment": "[parameters('hostingEnvironment')]",
                 "serverFarmId": "[resourceId(parameters('RGName'),'Microsoft.Network/serverfarms/',parameters('hostingPlanName'))]"
             },
+            "resources": [
+                {
+                    "apiVersion": "2016-08-01",
+                    "type": "slots",
+                    "name": "staging",
+                    "location": "[parameters('location')]",
+                    "comments": "This specifies the staging web app slot.",
+                    "properties": {
+                        "serverFarmId": "[resourceId(parameters('RGName'),'Microsoft.Network/serverfarms/',parameters('hostingPlanName'))]"
+                    },
+                    "dependsOn": [
+                      "[resourceId('Microsoft.Web/Sites', parameters('webappName'))]"
+                    ]
+                }
+            ],
             "dependsOn": [
                 "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
             ]
